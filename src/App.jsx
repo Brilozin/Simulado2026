@@ -5,21 +5,19 @@ import { config } from './config'
 import { codigosWmo } from './codigosWmo'
 
 import termometro from './assets/icones/termometro.svg'
+import umidade from './assets/icones/umidade.svg'
+import vento from './assets/icones/vento.svg'
 import uv from './assets/icones/uv.svg'
 import porSol from './assets/icones/por-sol.svg'
-import nascerSol from './assets/icones/nascer-sol.svg'
-import vento from './assets/icones/vento.svg'
-import busca from './assets/icones/busca.svg'
-import neve from './assets/icones/neve.svg'
-import tempestade from './assets/icones/tempestade.svg'
+
 import sol from './assets/icones/sol.svg'
 import nublado from './assets/icones/nublado.svg'
 import chuva from './assets/icones/chuva.svg'
-import chuvaGota from './assets/icones/chuva-gota.svg'
-import umidade from './assets/icones/umidade.svg'
+import neve from './assets/icones/neve.svg'
+import tempestade from './assets/icones/tempestade.svg'
 
 function App() {
-  const [buscaCidade, setBuscaCidade] = useState('')
+  const [busca, setBusca] = useState('')
   const [cidade, setCidade] = useState(null)
   const [clima, setClima] = useState(null)
   const [carregando, setCarregando] = useState(false)
@@ -34,25 +32,23 @@ function App() {
     'Porto Alegre',
   ]
 
-  function obterImagem(codigo) {
-    if ([0, 1].includes(codigo)) return sol
-    if ([2, 3, 45, 48].includes(codigo)) return nublado
-    if ([71, 73, 75].includes(codigo)) return neve
-    if ([95, 96, 99].includes(codigo)) return tempestade
-    return chuva
+  function obterCondicao(codigo) {
+    return codigosWmo.find((item) => item.codigo === codigo) || {
+      descricao: 'Condição desconhecida',
+      icone: '🌡️',
+    }
   }
 
-  function obterCondicao(codigo) {
-    const condicao = codigosWmo.find(
-      (item) => item.codigo === codigo,
-    )
+  function obterImagem(codigo) {
+    if (codigo === 0 || codigo === 1) return sol
 
-    return {
-      descricao: condicao
-        ? condicao.descricao
-        : 'Condição desconhecida',
-      imagem: obterImagem(codigo),
-    }
+    if ([2, 3, 45, 48].includes(codigo)) return nublado
+
+    if ([71, 73, 75].includes(codigo)) return neve
+
+    if ([95, 96, 99].includes(codigo)) return tempestade
+
+    return chuva
   }
 
   function formatarData(data) {
@@ -85,11 +81,10 @@ function App() {
     setErro('')
     setClima(null)
     setCidade(null)
-    setBuscaCidade(nome)
+    setBusca(nome)
 
     try {
-      const urlCidade =
-        `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(nome)}&count=1&language=pt&format=json`
+      const urlCidade = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(nome)}&count=1&language=pt&format=json`
 
       const respostaCidade = await fetch(urlCidade)
 
@@ -131,8 +126,7 @@ function App() {
         wind_speed_unit: 'kmh',
       })
 
-      const urlClima =
-        `https://api.open-meteo.com/v1/forecast?${parametros}`
+      const urlClima = `https://api.open-meteo.com/v1/forecast?${parametros}`
 
       const respostaClima = await fetch(urlClima)
 
@@ -157,7 +151,7 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    buscarClima(buscaCidade)
+    buscarClima(busca)
   }
 
   const atual = clima?.current
@@ -169,30 +163,23 @@ function App() {
         <div className="header-conteudo">
           <div className="logo">
             <img src={config.logo} alt="Logo Sol Chuva" />
-            <h1>{config.nome}</h1>
+            <div>
+              <h1>{config.nome}</h1>
+              <p>O tempo certo, onde você estiver</p>
+            </div>
           </div>
-
-          <p>Previsão do tempo em tempo real</p>
         </div>
       </header>
 
       <main className="container">
-        <section className="apresentacao">
-          <span className="subtitulo">PREVISÃO METEOROLÓGICA</span>
-          <h2>Como está o tempo hoje?</h2>
-          <p>
-            Consulte o clima atual e acompanhe a previsão dos próximos dez dias.
-          </p>
-        </section>
-
         <section className="pesquisa">
           <form onSubmit={handleSubmit}>
             <input
               type="text"
               list="lista-cidades"
               placeholder="Digite o nome de uma cidade..."
-              value={buscaCidade}
-              onChange={(event) => setBuscaCidade(event.target.value)}
+              value={busca}
+              onChange={(event) => setBusca(event.target.value)}
             />
 
             <datalist id="lista-cidades">
@@ -202,14 +189,12 @@ function App() {
             </datalist>
 
             <button type="submit" disabled={carregando}>
-              <img src={busca} alt="" />
+              <span>⌕</span>
               {carregando ? 'Buscando...' : 'Buscar'}
             </button>
           </form>
 
           <div className="cidades-rapidas">
-            <span>Pesquisas rápidas:</span>
-
             {cidades.map((nome) => (
               <button
                 key={nome}
@@ -230,11 +215,7 @@ function App() {
           </div>
         )}
 
-        {erro && (
-          <div className="mensagem erro">
-            {erro}
-          </div>
-        )}
+        {erro && <div className="mensagem erro">{erro}</div>}
 
         {clima && cidade && (
           <>
@@ -257,15 +238,13 @@ function App() {
                 <div className="temperatura-principal">
                   <img
                     className="icone-grande"
-                    src={obterCondicao(atual.weather_code).imagem}
+                    src={obterImagem(atual.weather_code)}
                     alt={obterCondicao(atual.weather_code).descricao}
                   />
 
                   <div>
                     <h3>{Math.round(atual.temperature_2m)}°C</h3>
-                    <p>
-                      {obterCondicao(atual.weather_code).descricao}
-                    </p>
+                    <p>{obterCondicao(atual.weather_code).descricao}</p>
                   </div>
                 </div>
 
@@ -291,7 +270,7 @@ function App() {
                   </div>
 
                   <div className="detalhe">
-                    <img src={chuvaGota} alt="" />
+                    <img src={umidade} alt="" />
                     <span>Precipitação</span>
                     <strong>{atual.precipitation} mm</strong>
                   </div>
@@ -302,14 +281,12 @@ function App() {
                     <strong>{atual.uv_index}</strong>
                   </div>
 
-                  <div className="detalhe">
-                    <div className="horarios-icones">
-                      <img src={nascerSol} alt="" />
-                      <img src={porSol} alt="" />
-                    </div>
+                  <div className="detalhe detalhe-sol">
+                    <img src={porSol} alt="" />
                     <span>Nascer / Pôr do sol</span>
                     <strong>
-                      {formatarHorario(previsao.sunrise[0])} / {formatarHorario(previsao.sunset[0])}
+                      {formatarHorario(previsao.sunrise[0])} /{' '}
+                      {formatarHorario(previsao.sunset[0])}
                     </strong>
                   </div>
                 </div>
@@ -336,7 +313,7 @@ function App() {
 
                       <img
                         className="icone-previsao"
-                        src={condicao.imagem}
+                        src={obterImagem(previsao.weather_code[indice])}
                         alt={condicao.descricao}
                       />
 
@@ -354,7 +331,7 @@ function App() {
                       </div>
 
                       <div className="chuva-previsao">
-                        <img src={chuvaGota} alt="" />
+                        💧{' '}
                         {previsao.precipitation_probability_max[indice] ?? '--'}%
                       </div>
                     </article>
@@ -368,7 +345,8 @@ function App() {
 
       <footer className="footer">
         <p>
-          © {new Date().getFullYear()} {config.nome} - Todos os direitos reservados.
+          © {new Date().getFullYear()} {config.nome} - Todos os direitos
+          reservados.
         </p>
         <span>Dados meteorológicos fornecidos pela Open-Meteo.</span>
       </footer>

@@ -6,6 +6,7 @@
 }
 
 body {
+  font-family: 'Inter', sans-serif;
   background: #f1f2f7;
   color: #333333;
 }
@@ -13,6 +14,10 @@ body {
 button,
 input {
   font-family: inherit;
+}
+
+button {
+  cursor: pointer;
 }
 
 .pagina {
@@ -23,71 +28,46 @@ input {
 
 .header {
   background: #ffffff;
-  border-bottom: 1px solid #eeeeee;
+  padding: 16px 7%;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .header-conteudo {
-  max-width: 700px;
+  max-width: 900px;
   margin: auto;
-  padding: 12px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .logo img {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
+  width: 45px;
+  height: 45px;
 }
 
 .logo h1 {
-  font-size: 22px;
+  font-size: 23px;
+  color: #483dad;
 }
 
-.header-conteudo > p {
+.logo p {
+  font-size: 13px;
   color: #777777;
-  font-size: 12px;
+  margin-top: 3px;
 }
 
 .container {
-  width: 100%;
-  max-width: 660px;
-  padding: 25px 10px;
-  margin: auto;
+  width: 92%;
+  max-width: 640px;
+  margin: 35px auto;
   flex: 1;
 }
 
-.apresentacao {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-.subtitulo {
-  color: #483DAD;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.apresentacao h2 {
-  font-size: 26px;
-  margin: 8px 0;
-}
-
-.apresentacao p {
-  color: #777777;
-  font-size: 12px;
-}
-
 .pesquisa {
-  margin: 0 auto 28px;
+  margin-bottom: 25px;
 }
 
 .pesquisa form {
@@ -98,66 +78,54 @@ input {
 .pesquisa input {
   flex: 1;
   min-width: 0;
-  padding: 14px;
+  padding: 13px 16px;
   border: 1px solid #dddddd;
-  border-radius: 9px;
-  background: #ffffff;
+  border-radius: 11px;
+  background: white;
   font-size: 13px;
   outline: none;
 }
 
 .pesquisa input:focus {
-  border-color: #483DAD;
+  border-color: #483dad;
 }
 
 .pesquisa form button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  background: #483DAD;
-  color: #ffffff;
+  background: #483dad;
+  color: white;
   border: none;
-  border-radius: 9px;
-  padding: 0 20px;
-  font-size: 13px;
+  border-radius: 11px;
+  padding: 0 22px;
   font-weight: 600;
-  cursor: pointer;
 }
 
-.pesquisa form button img {
-  width: 16px;
-  height: 16px;
-  filter: brightness(0) invert(1);
+.pesquisa form button:hover {
+  background: #352b91;
+}
+
+.pesquisa form button span {
+  margin-right: 6px;
 }
 
 .cidades-rapidas {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 7px;
   margin-top: 13px;
 }
 
-.cidades-rapidas span {
-  font-size: 11px;
-  color: #777777;
-}
-
 .cidades-rapidas button {
-  background: #ffffff;
+  background: white;
   border: 1px solid #dddddd;
   border-radius: 20px;
-  padding: 7px 11px;
-  color: #483DAD;
-  font-size: 11px;
-  cursor: pointer;
+  padding: 7px 12px;
+  color: #444444;
+  font-size: 12px;
 }
 
 .cidades-rapidas button:hover {
-  background: #483DAD;
-  color: #ffffff;
+  border-color: #483dad;
+  color: #483dad;
 }
 
 button:disabled {
@@ -167,31 +135,28 @@ button:disabled {
 
 .mensagem {
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 12px;
   text-align: center;
-  margin: 20px auto;
+  margin-bottom: 20px;
 }
 
 .erro {
-  background: #fff0f0;
-  border: 1px solid #ff0000;
-  color: #ff0000;
+  color: #b00020;
+  background: #ffeaea;
 }
 
 .carregando {
-  color: #483DAD;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  background: white;
+  color: #483dad;
 }
 
 .spinner {
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   border: 3px solid #dddddd;
-  border-top-color: #483DAD;
+  border-top-color: #483dad;
   border-radius: 50%;
+  margin: 0 auto 10px;
   animation: girar 0.8s linear infinite;
 }
 
@@ -203,128 +168,112 @@ button:disabled {
 
 .clima-atual {
   background: #303030;
-  color: #ffffff;
+  color: white;
+  padding: 25px 22px;
   border-radius: 19px;
-  padding: 23px 22px;
-  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.12);
   margin-bottom: 18px;
+  box-shadow: 0 6px 15px #00000012;
 }
 
 .cidade-info {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
   gap: 10px;
+  margin-bottom: 20px;
 }
 
 .cidade-info h2 {
-  font-size: 19px;
-  margin-bottom: 4px;
+  font-size: 21px;
 }
 
 .cidade-info p {
-  color: #c2c2ce;
+  color: #cccccc;
   font-size: 12px;
+  margin-top: 5px;
 }
 
 .horario-atual {
-  color: #b8b8c4;
   font-size: 10px;
+  color: #cccccc;
 }
 
 .conteudo-clima {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: 1fr 1.5fr;
   align-items: center;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 20px;
 }
 
 .temperatura-principal {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  min-width: 0;
+  gap: 12px;
 }
 
 .icone-grande {
-  width: 65px;
-  height: 65px;
+  width: 58px;
+  height: 58px;
   object-fit: contain;
-  flex-shrink: 0;
 }
 
 .temperatura-principal h3 {
   font-size: 43px;
-  line-height: 1.1;
-  white-space: nowrap;
 }
 
 .temperatura-principal p {
-  color: #d0d0d8;
   font-size: 12px;
-  margin-top: 6px;
+  margin-top: 5px;
+  color: #dddddd;
 }
 
 .detalhes-clima {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
-  min-width: 0;
 }
 
 .detalhe {
-  min-width: 0;
-  min-height: 43px;
+  background: #414141;
+  border-radius: 11px;
+  padding: 11px 9px;
   display: flex;
   align-items: center;
   gap: 7px;
-  padding: 8px;
-  background: #414141;
-  border-radius: 10px;
-}
-
-.detalhe > img,
-.horarios-icones img {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
-  flex-shrink: 0;
-}
-
-.detalhe span {
-  color: #c5c5d0;
-  font-size: 10px;
-  flex: 1;
   min-width: 0;
 }
 
+.detalhe img {
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+}
+
+.detalhe span {
+  color: #dddddd;
+  font-size: 10px;
+  flex: 1;
+}
+
 .detalhe strong {
-  color: #ffffff;
   font-size: 10px;
   white-space: nowrap;
 }
 
-.horarios-icones {
-  display: flex;
-  gap: 2px;
-}
-
 .previsao {
-  background: #ffffff;
-  border-radius: 17px;
+  background: white;
   padding: 20px;
-  margin-bottom: 22px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border-radius: 19px;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 15px #00000008;
 }
 
 .titulo-secao {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .titulo-secao h2 {
-  font-size: 15px;
+  font-size: 16px;
+  color: #333333;
 }
 
 .lista-previsao {
@@ -334,130 +283,111 @@ button:disabled {
 }
 
 .card-previsao {
-  background: #ffffff;
-  border: 1px solid #e3e5ed;
-  border-radius: 13px;
-  padding: 12px 5px;
+  border: 1px solid #e0e0e8;
+  border-radius: 14px;
+  padding: 14px 7px;
   text-align: center;
-  transition: transform 0.2s;
-}
-
-.card-previsao:hover {
-  transform: translateY(-3px);
-  border-color: #483DAD;
+  background: white;
+  min-width: 0;
 }
 
 .dia-previsao {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .dia-previsao strong {
-  text-transform: capitalize;
   font-size: 11px;
+  color: #333333;
+  text-transform: capitalize;
 }
 
 .dia-previsao small {
-  color: #888888;
-  font-size: 10px;
+  font-size: 11px;
+  color: #777777;
 }
 
 .icone-previsao {
-  width: 37px;
-  height: 37px;
-  object-fit: contain;
   display: block;
-  margin: 12px auto 8px;
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  margin: 15px auto;
 }
 
 .descricao-previsao {
-  min-height: 28px;
-  color: #777777;
   font-size: 9px;
+  color: #777777;
+  min-height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .temperaturas {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin: 9px 0;
+  margin: 13px 0;
 }
 
 .temperaturas strong {
   font-size: 13px;
+  color: #333333;
 }
 
 .temperaturas span {
+  font-size: 12px;
   color: #888888;
-  font-size: 13px;
 }
 
 .chuva-previsao {
-  color: #483DAD;
-  font-size: 10px;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 3px;
-}
-
-.chuva-previsao img {
-  width: 12px;
-  height: 12px;
-  object-fit: contain;
+  font-size: 11px;
+  color: #483dad;
 }
 
 .footer {
-  background: #ffffff;
-  border-top: 1px solid #eeeeee;
-  padding: 17px;
+  background: #303030;
+  color: white;
   text-align: center;
-  color: #777777;
+  padding: 18px;
+  margin-top: auto;
+}
+
+.footer p {
+  font-size: 12px;
+}
+
+.footer span {
+  display: block;
   font-size: 11px;
-  line-height: 1.8;
+  color: #cccccc;
+  margin-top: 6px;
 }
 
 @media (max-width: 600px) {
-  .header-conteudo {
-    padding: 12px;
-  }
-
-  .header-conteudo > p {
-    display: none;
-  }
-
-  .container {
-    padding: 22px 12px;
-  }
-
   .conteudo-clima {
     grid-template-columns: 1fr;
-    gap: 18px;
   }
 
-  .temperatura-principal {
-    justify-content: center;
+  .cidade-info {
+    flex-direction: column;
   }
 
-  .temperatura-principal h3 {
-    font-size: 45px;
+  .detalhes-clima {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .lista-previsao {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
-@media (max-width: 360px) {
-  .detalhe {
-    gap: 4px;
-    padding: 7px 5px;
+  .pesquisa form {
+    flex-direction: column;
   }
 
-  .detalhe span,
-  .detalhe strong {
-    font-size: 9px;
+  .pesquisa form button {
+    padding: 13px;
   }
 }
